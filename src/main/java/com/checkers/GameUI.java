@@ -136,7 +136,7 @@ public class GameUI extends Application {
         Scene scene = new Scene(root);
 
         playBtn.setOnAction(e -> {
-            stage.setScene(scene);
+            primaryStage.setScene(scene);
             player1Name = new String(p1Name.getText());
             player2Name = new String(p2Name.getText());
             if (p1Color.getValue().equals(Color.rgb(142, 95, 58))
@@ -159,12 +159,12 @@ public class GameUI extends Application {
                 player2Color = Color.AQUA;
             }
 
-            statusInfo.setText(App.p1Name.getText() + "'s turn");
+            statusInfo.setText(GameUI.p1Name.getText() + "'s turn");
             board.newGame();
         });
 
         homeBtn.setOnAction(e -> {
-            stage.setScene(homeScene);
+            primaryStage.setScene(homeScene);
         });
 
         // END OF PLAYING SCENE1
@@ -175,11 +175,11 @@ public class GameUI extends Application {
         Scene winScene = new Scene(winScreen);
 
         // stage.getIcons().add(icon);
-        stage.setScene(homeScene);
-        stage.getIcons().add(icon);
-        stage.setResizable(false);
-        stage.setTitle("CHECXERS");
-        stage.show();
+        primaryStage.setScene(homeScene);
+        primaryStage.getIcons().add(icon);
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("CHECXERS");
+        primaryStage.show();
 
     }
 
