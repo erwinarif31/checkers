@@ -2,8 +2,7 @@ package com.checkers;
 
 import java.util.ArrayList;
 
-public class GameUtil {
-    
+public class GameUtil {    
     static final int EMPTY = 0, P1 = 1, KING_P1 = 2, P2 = 3, KING_P2 = 4;
 
     int[][] board;

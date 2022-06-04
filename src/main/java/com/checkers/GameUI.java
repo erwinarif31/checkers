@@ -180,6 +180,7 @@ public class GameUI extends Application {
         stage.setResizable(false);
         stage.setTitle("CHECXERS");
         stage.show();
+
     }
 
     public static void main(String[] args) {
