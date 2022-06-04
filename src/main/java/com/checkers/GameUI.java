@@ -1,7 +1,6 @@
 package com.checkers;
 
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,12 +8,12 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 /**
  * JavaFX App
@@ -168,11 +167,6 @@ public class GameUI extends Application {
         });
 
         // END OF PLAYING SCENE1
-
-        VBox winScreen = new VBox();
-        winScreen.setPrefWidth(550);
-        winScreen.setPrefHeight(600);
-        Scene winScene = new Scene(winScreen);
 
         // stage.getIcons().add(icon);
         primaryStage.setScene(homeScene);
