@@ -116,7 +116,98 @@ public class Board extends Canvas {
 
 
     public void mousePressed(MouseEvent e) {
+        if (!isPlaying)
+            GameUI.statusInfo.setText("Press New Game to start new game.");
+        else {
+            int col = (int) ((e.getX()) / 40);
+            int row = (int) ((e.getY()) / 40);
 
+            if (col >= 0 && col < 10 && row >= 0 && row < 10) {
+                clickSquare(row, col);
+            }
+        }
+    }
+
+    private void clickSquare(int row, int col) {
+        for (int i = 0; i < validMoves.length; i++) {
+            if (validMoves[i].initRow == row && validMoves[i].initCol == col) {
+                selectedRow = row;
+                selectedCol = col;
+
+                if (activePlayer == GameUtil.P1) {
+                    GameUI.statusInfo.setText(GameUI.player1Name + "'s turn");
+                } else {
+                    GameUI.statusInfo.setText(GameUI.player2Name + "'s turn");
+                }
+
+                setBoard();
+                return;
+            }
+        }
+
+        for (int i = 0; i < validMoves.length; i++) {
+            if (validMoves[i].initRow == selectedRow && validMoves[i].initCol == selectedCol
+                    && validMoves[i].finalRow == row && validMoves[i].finalCol == col) {
+                makeMove(validMoves[i]);
+                return;
+            }
+        }
+    }
+
+    private void makeMove(Move move) {
+        game.moves(move);
+
+        if (move.isEatMove()) {
+            validMoves = game.getValidEatMoves(activePlayer, move.finalRow, move.finalCol);
+            if (validMoves != null) {
+                if (activePlayer == GameUtil.P1) {
+                    GameUI.statusInfo.setText(GameUI.player1Name + "'s turn");
+                } else {
+                    GameUI.statusInfo.setText(GameUI.player2Name + "'s turn");
+                }
+
+                selectedRow = move.finalRow;
+                selectedCol = move.finalCol;
+
+                setBoard();
+                return;
+            }
+        }
+
+        if (activePlayer == GameUtil.P1) {
+            activePlayer = GameUtil.P2;
+            validMoves = game.getValidMoves(activePlayer);
+            if (validMoves == null) {
+                gameOver(GameUI.player1Name + " wins.");
+            } else {
+                GameUI.statusInfo.setText(GameUI.player2Name + "'s turn");
+            }
+        } else {
+            activePlayer = GameUtil.P1;
+            validMoves = game.getValidMoves(activePlayer);
+            if (validMoves == null) {
+                gameOver(GameUI.player2Name + " wins.");
+            } else {
+                GameUI.statusInfo.setText(GameUI.player1Name + "'s turn");
+            }
+        }
+
+        selectedRow = -1;
+
+        if (validMoves != null) {
+            boolean sameStartSquare = true;
+            for (int i = 1; i < validMoves.length; i++)
+                if (validMoves[i].initRow != validMoves[0].initRow
+                        || validMoves[i].initCol != validMoves[0].initCol) {
+                    sameStartSquare = false;
+                    break;
+                }
+            if (sameStartSquare) {
+                selectedRow = validMoves[0].initRow;
+                selectedCol = validMoves[0].initCol;
+            }
+        }
+        setBoard();
     }
 
 }
